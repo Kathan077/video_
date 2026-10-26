@@ -116,7 +116,7 @@ function App() {
 
             {/* CTA Text */}
             <div className="btn-content">
-              <span className="btn-main-title">Click Here to Connect ID</span>
+              <span className="btn-main-title">Click Here to Get ID</span>
             </div>
 
             {/* Action Arrow */}
