@@ -16,23 +16,8 @@ function App() {
     }
   }
 
-  const toggleSound = (e) => {
-    e.stopPropagation()
-    if (!videoRef.current) return
-    const nextState = !videoRef.current.muted
-    videoRef.current.muted = nextState
-    setIsMuted(nextState)
-    if (!nextState) {
-      videoRef.current.volume = 1.0
-      videoRef.current.play().catch(() => {})
-    }
-  }
-
-  // When clicking on the video, immediately open WhatsApp!
-  const handleVideoClick = (e) => {
-    if (e.target.closest('.sound-toggle-badge')) {
-      return
-    }
+  // When clicking on the video (outside the button), open WhatsApp directly!
+  const handleVideoClick = () => {
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
   }
 
@@ -40,13 +25,13 @@ function App() {
     const video = videoRef.current
     if (!video) return
 
-    // Attempt to play with SOUND first
+    // Attempt to play with sound
     video.muted = false
     video.volume = 1.0
     video.play().then(() => {
       setIsMuted(false)
     }).catch(() => {
-      // If browser blocked unmuted autoplay, play muted until first click
+      // If browser blocked unmuted autoplay, play muted until first interaction
       video.muted = true
       setIsMuted(true)
       video.play().catch(() => {})
@@ -71,96 +56,45 @@ function App() {
   }, [])
 
   return (
-    <div className="ad-container">
+    <div className="fullscreen-ad-wrapper">
       {/* Background Watermark Typography */}
       <div className="bg-watermark-container" aria-hidden="true">
         <span className="watermark-line text-top">CONNECT YOUR ID</span>
         <span className="watermark-line text-bottom">INSTANT VERIFICATION • 24/7 ACTIVE</span>
       </div>
 
-      {/* Decorative Floating Creative Accent Glows */}
+      {/* Background Glow Accents */}
       <div className="accent-shape shape-1"></div>
       <div className="accent-shape shape-2"></div>
 
-      {/* Desktop Left Creative Ad Banner Card */}
-      <div className="side-banner side-banner-left">
-        <div className="banner-tag">
-          <span className="tag-dot"></span> DIRECT ACCESS
-        </div>
-        <h2 className="banner-title">Connect Your ID</h2>
-        <p className="banner-desc">Tap the button to verify and activate your official ID in seconds.</p>
-        <div className="banner-perks">
-          <div className="perk-item">
-            <span className="perk-icon">⚡</span>
-            <span>1-Minute Fast Activation</span>
-          </div>
-          <div className="perk-item">
-            <span className="perk-icon">🔒</span>
-            <span>100% Safe & Verified</span>
-          </div>
-          <div className="perk-item">
-            <span className="perk-icon">💬</span>
-            <span>Direct WhatsApp Support</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Center Showcase Column (Top Header + Video + WhatsApp Button) */}
-      <div className="center-stage">
-        
-        {/* Creative Top Headline / Callout */}
-        <div className="ad-headline-bar">
-          <div className="headline-badge">
-            <span className="live-spark">🔥</span>
-            <span className="headline-text">CLICK HERE TO CONNECT YOUR ID</span>
-          </div>
-        </div>
-
-        {/* 9:16 Portrait Video Card - Clicking video opens WhatsApp! */}
-        <div
-          className="video-card"
-          onClick={handleVideoClick}
-          role="button"
-          tabIndex={0}
-          title="Click to Connect on WhatsApp"
+      {/* Main Video Container - Length to Length */}
+      <div
+        className="full-video-card"
+        onClick={handleVideoClick}
+        role="button"
+        tabIndex={0}
+        title="Click anywhere to connect on WhatsApp"
+      >
+        {/* 9:16 Portrait Video Running Length-to-Length in Continuous Loop */}
+        <video
+          ref={videoRef}
+          className="length-to-length-video"
+          src="/img/lv_0_20261025113617.mp4"
+          autoPlay
+          loop
+          playsInline
+          disablePictureInPicture
         >
-          {/* Floating Sound Controller Badge */}
-          <button
-            type="button"
-            className={`sound-toggle-badge ${isMuted ? 'muted' : 'active'}`}
-            onClick={toggleSound}
-            title={isMuted ? "Click to Unmute Sound" : "Sound is ON"}
-          >
-            {isMuted ? (
-              <>
-              </>
-            ) : (
-              <>
-              
-              </>
-            )}
-          </button>
+          Your browser does not support the video tag.
+        </video>
 
-          <video
-            ref={videoRef}
-            className="ad-video"
-            src="/img/lv_0_20261025113617.mp4"
-            autoPlay
-            loop
-            playsInline
-            disablePictureInPicture
-          >
-            Your browser does not support the video tag.
-          </video>
-        </div>
-
-        {/* Creative High-Converting WhatsApp CTA Button */}
-        <div className="button-wrapper">
+        {/* Overlaid WhatsApp Button - Positioned Directly Over Elephant's Legs */}
+        <div className="video-overlay-button-zone" onClick={(e) => e.stopPropagation()}>
           <a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="creative-wa-btn"
+            className="overlay-wa-btn"
             id="whatsapp-btn"
           >
             {/* Subtle button pulsing glow */}
@@ -169,18 +103,18 @@ function App() {
             {/* Shimmer Light Reflection Sweep */}
             <span className="btn-shimmer-sweep"></span>
 
-            {/* WhatsApp Icon */}
+            {/* Official Sharp WhatsApp Icon */}
             <div className="wa-icon-container">
               <svg
                 className="wa-icon"
-                viewBox="0 0 32 32"
-                fill="currentColor"
+                viewBox="0 0 24 24"
+                fill="#25D366"
               >
-                <path d="M16.01 2.01c-7.72 0-14 6.28-14 14 0 2.47.65 4.88 1.88 7.02l-2 7.31 7.48-1.96c2.07 1.13 4.41 1.73 6.64 1.73 7.72 0 14-6.28 14-14s-6.28-14-14-14zm0 25.59c-2.11 0-4.18-.57-6-1.65l-.43-.26-4.44 1.16 1.19-4.33-.28-.45c-1.19-1.89-1.82-4.08-1.82-6.31 0-6.49 5.28-11.77 11.77-11.77 6.49 0 11.77 5.28 11.77 11.77 0 6.49-5.28 11.77-11.77 11.77zm6.45-8.83c-.35-.18-2.09-1.03-2.42-1.15-.32-.12-.56-.18-.8.18-.23.35-.91 1.15-1.12 1.39-.2.24-.41.27-.76.09-.35-.18-1.49-.55-2.84-1.75-1.05-.94-1.76-2.1-1.96-2.45-.21-.35-.02-.54.15-.72.16-.16.35-.41.53-.62.18-.21.23-.35.35-.59.12-.24.06-.44-.03-.62-.09-.18-.8-1.92-1.09-2.63-.29-.69-.58-.6-.8-.61h-.68c-.24 0-.62.09-.94.44s-1.24 1.21-1.24 2.96c0 1.75 1.27 3.44 1.45 3.68.18.24 2.5 3.82 6.06 5.35.85.37 1.51.58 2.02.75.85.27 1.63.23 2.24.14.68-.1 2.09-.85 2.39-1.68.29-.82.29-1.53.21-1.68-.09-.15-.32-.24-.68-.41z"></path>
+                <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.57 14.39C16.32 14.26 15.1 13.66 14.88 13.58C14.65 13.5 14.49 13.46 14.32 13.71C14.16 13.96 13.69 14.51 13.55 14.68C13.41 14.84 13.27 14.86 13.02 14.74C12.78 14.61 11.98 14.35 11.04 13.51C10.31 12.85 9.81 12.04 9.67 11.8C9.53 11.55 9.65 11.41 9.78 11.29C9.89 11.17 10.03 10.99 10.15 10.85C10.27 10.71 10.32 10.6 10.4 10.44C10.48 10.27 10.44 10.13 10.38 10.01C10.32 9.88 9.83 8.68 9.63 8.19C9.43 7.71 9.23 7.78 9.08 7.77H8.61C8.45 7.77 8.18 7.83 7.96 8.07C7.74 8.31 7.12 8.89 7.12 10.07C7.12 11.25 7.98 12.39 8.1 12.55C8.22 12.71 9.79 15.14 12.21 16.18C12.79 16.43 13.24 16.58 13.59 16.69C14.17 16.88 14.7 16.85 15.12 16.79C15.59 16.72 16.56 16.2 16.76 15.63C16.97 15.06 16.97 14.57 16.91 14.47C16.85 14.37 16.71 14.31 16.46 14.19L16.57 14.39Z" />
               </svg>
             </div>
 
-            {/* CTA Text Group */}
+            {/* CTA Text */}
             <div className="btn-content">
               <span className="btn-main-title">Click Here to Connect ID</span>
             </div>
@@ -195,33 +129,6 @@ function App() {
           </a>
         </div>
       </div>
-
-      {/* Desktop Right Creative Trust Card */}
-      <div className="side-banner side-banner-right">
-        <div className="banner-tag highlight">
-          <span>⚡ INSTANT PROCESS</span>
-        </div>
-        <h2 className="banner-title">How It Works</h2>
-        <div className="steps-list">
-          <div className="step-card">
-            <div className="step-num">1</div>
-            <div className="step-text">Watch Video Preview</div>
-          </div>
-          <div className="step-card">
-            <div className="step-num">2</div>
-            <div className="step-text">Click WhatsApp Button</div>
-          </div>
-          <div className="step-card">
-            <div className="step-num">3</div>
-            <div className="step-text">Get Your ID Connected</div>
-          </div>
-        </div>
-        <div className="trust-footer">
-          <span className="trust-stars">★★★★★</span>
-          <span className="trust-count">10,000+ IDs Connected</span>
-        </div>
-      </div>
-
     </div>
   )
 }

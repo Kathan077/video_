@@ -1,5 +1,5 @@
-/* Main Creative Ad Container - 100% Single Viewport Fit (No Scroll Guaranteed) */
-.ad-container {
+/* Fullscreen Length-to-Length Video Ad Wrapper (No Scroll) */
+.fullscreen-ad-wrapper {
   width: 100vw;
   height: 100vh;
   height: 100dvh;
@@ -7,10 +7,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(6px, 1.2vh, 16px) clamp(10px, 2vw, 24px);
-  box-sizing: border-box;
+  background-color: #ffffff;
   overflow: hidden;
-  gap: clamp(14px, 2.5vw, 32px);
+  box-sizing: border-box;
 }
 
 /* Background Watermark Typography */
@@ -29,25 +28,25 @@
 
 .watermark-line {
   font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 6.5vw, 7rem);
+  font-size: clamp(2.5rem, 7vw, 7.5rem);
   font-weight: 900;
   letter-spacing: 0.08em;
-  color: rgba(15, 23, 42, 0.026);
+  color: rgba(15, 23, 42, 0.03);
   white-space: nowrap;
   text-transform: uppercase;
 }
 
 .watermark-line.text-top {
-  transform: translateY(-10px) rotate(-2deg);
+  transform: translateY(-15px) rotate(-2deg);
 }
 
 .watermark-line.text-bottom {
-  transform: translateY(10px) rotate(2deg);
+  transform: translateY(15px) rotate(2deg);
   font-size: clamp(1.6rem, 4vw, 4rem);
   letter-spacing: 0.12em;
 }
 
-/* Creative Floating Background Accents */
+/* Creative Floating Ambient Glow Accents */
 .accent-shape {
   position: absolute;
   border-radius: 50%;
@@ -56,22 +55,22 @@
 }
 
 .shape-1 {
-  width: min(340px, 35vw);
-  height: min(340px, 35vw);
-  background: radial-gradient(circle, rgba(37, 211, 102, 0.18) 0%, rgba(37, 211, 102, 0.02) 70%, transparent 100%);
-  top: 4%;
-  left: 5%;
-  filter: blur(45px);
+  width: min(400px, 40vw);
+  height: min(400px, 40vw);
+  background: radial-gradient(circle, rgba(37, 211, 102, 0.2) 0%, rgba(37, 211, 102, 0.02) 70%, transparent 100%);
+  top: 5%;
+  left: 6%;
+  filter: blur(50px);
   animation: floatShape1 10s ease-in-out infinite alternate;
 }
 
 .shape-2 {
-  width: min(360px, 35vw);
-  height: min(360px, 35vw);
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.14) 0%, rgba(139, 92, 246, 0.04) 60%, transparent 100%);
+  width: min(420px, 40vw);
+  height: min(420px, 40vw);
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.16) 0%, rgba(139, 92, 246, 0.04) 60%, transparent 100%);
   bottom: 5%;
-  right: 5%;
-  filter: blur(50px);
+  right: 6%;
+  filter: blur(55px);
   animation: floatShape2 12s ease-in-out infinite alternate;
 }
 
@@ -85,41 +84,87 @@
   100% { transform: translateY(-30px) scale(1.08); }
 }
 
-/* Center Column (Headline + Video + CTA) */
-.center-stage {
+/* Main Length-to-Length Video Card */
+.full-video-card {
   position: relative;
   z-index: 2;
+  height: 100vh;
+  height: 100dvh;
+  aspect-ratio: 9 / 16;
+  max-width: min(520px, 100vw);
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: #000000;
+  box-shadow: 
+    0 20px 50px -10px rgba(15, 23, 42, 0.25),
+    0 0 30px rgba(37, 211, 102, 0.18);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* On Desktop: Sleek Rounded Reel Frame */
+@media (min-width: 769px) {
+  .full-video-card {
+    height: 98vh;
+    height: 98dvh;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+  }
+
+  .full-video-card:hover {
+    transform: scale(1.008);
+    box-shadow: 
+      0 25px 60px -10px rgba(15, 23, 42, 0.3),
+      0 0 40px rgba(37, 211, 102, 0.28);
+  }
+}
+
+/* On Mobile: Full-Bleed 100% Length-to-Length */
+@media (max-width: 768px) {
+  .full-video-card {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-width: 100vw;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+}
+
+/* HTML5 Video - Seamless Length-to-Length Cover */
+.length-to-length-video {
+  width: 100%;
   height: 100%;
-  max-height: 100dvh;
-  box-sizing: border-box;
-  flex-shrink: 0;
+  object-fit: cover;
+  display: block;
 }
 
-/* Creative Top Headline / Callout */
-.ad-headline-bar {
-  flex-shrink: 0;
-  margin-bottom: clamp(6px, 1.2vh, 12px);
-  display: flex;
-  justify-content: center;
-}
-
-.headline-badge {
+/* Top Floating Promo Badge inside Video */
+.video-ad-badge {
+  position: absolute;
+  top: clamp(12px, 2.5vh, 20px);
+  left: clamp(12px, 2.5vw, 20px);
+  z-index: 5;
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: clamp(4px, 0.8vh, 7px) clamp(12px, 1.5vw, 18px);
-  background: linear-gradient(135deg, rgba(37, 211, 102, 0.14), rgba(6, 182, 212, 0.1));
-  border: 1px solid rgba(37, 211, 102, 0.35);
+  padding: 6px 14px;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 50px;
-  box-shadow: 0 2px 10px rgba(37, 211, 102, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
 }
 
 .live-spark {
-  font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+  font-size: 0.85rem;
   animation: pulseSpark 1.6s infinite ease-in-out;
 }
 
@@ -128,69 +173,24 @@
   50% { transform: scale(1.25); }
 }
 
-.headline-text {
+.badge-text {
   font-family: var(--font-heading);
-  font-size: clamp(0.72rem, 1.1vw, 0.84rem);
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.05em;
-  background: linear-gradient(135deg, #0f172a 0%, #166534 50%, #0369a1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  white-space: nowrap;
-}
-
-/* Video Card - Fits strictly in available height without letterbox bars or cutoffs */
-.video-card {
-  position: relative;
-  flex: 1 1 auto;
-  min-height: 0; /* Crucial: allows flex child to shrink properly */
-  /* Generously reserve room for headline + button + paddings so NOTHING gets chopped off */
-  max-height: calc(100dvh - clamp(140px, 18vh, 170px));
-  aspect-ratio: 9 / 16;
-  width: auto;
-  max-width: min(440px, calc(100vw - 32px));
-  margin: 0 auto;
-  border-radius: clamp(14px, 2vh, 18px);
-  overflow: hidden;
-  background: #000000;
-  border: 2px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 
-    0 16px 36px -8px rgba(15, 23, 42, 0.18),
-    0 4px 14px rgba(0, 0, 0, 0.08),
-    0 0 25px rgba(37, 211, 102, 0.22);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-}
-
-.video-card:hover {
-  transform: translateY(-2px) scale(1.008);
-  box-shadow: 
-    0 22px 48px -8px rgba(15, 23, 42, 0.24),
-    0 0 35px rgba(37, 211, 102, 0.38);
-}
-
-.ad-video {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  border-radius: 16px;
-  cursor: pointer;
+  color: #ffffff;
 }
 
 /* Floating Sound Controller Badge */
 .sound-toggle-badge {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 4;
+  top: clamp(12px, 2.5vh, 20px);
+  right: clamp(12px, 2.5vw, 20px);
+  z-index: 6;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 12px;
+  padding: 6px 14px;
   background: rgba(15, 23, 42, 0.75);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -203,11 +203,11 @@
   letter-spacing: 0.04em;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 .sound-toggle-badge:hover {
-  background: rgba(15, 23, 42, 0.9);
+  background: rgba(15, 23, 42, 0.95);
   transform: scale(1.05);
 }
 
@@ -239,80 +239,72 @@
   50% { opacity: 0.4; transform: scale(1.2); }
 }
 
-/* Video Element */
-.ad-video {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  border-radius: 16px;
-}
-
-/* Button Wrapper - Fixed bottom placement */
-.button-wrapper {
-  position: relative;
-  z-index: 2;
-  flex-shrink: 0;
-  margin-top: clamp(8px, 1.2vh, 14px);
-  margin-bottom: 0;
+/* Overlaid WhatsApp Button Zone - Floating Directly Over Elephant's Legs */
+.video-overlay-button-zone {
+  position: absolute;
+  bottom: clamp(18px, 4.8vh, 38px);
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  max-width: min(440px, calc(100vw - 32px));
+  z-index: 10;
+  padding: 0 20px;
+  pointer-events: none;
 }
 
 /* Creative High-Converting WhatsApp Button */
-.creative-wa-btn {
+.overlay-wa-btn {
+  pointer-events: auto;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   width: 100%;
-  max-width: 350px;
-  padding: clamp(8px, 1.1vh, 11px) clamp(14px, 1.8vw, 18px);
+  max-width: 360px;
+  padding: clamp(10px, 1.4vh, 14px) clamp(16px, 2vw, 22px);
   border-radius: 50px;
   background: linear-gradient(135deg, #25d366 0%, #1ebc5a 50%, #128c7e 100%);
   color: #ffffff;
   text-decoration: none;
   box-shadow: 
-    0 8px 24px -4px rgba(37, 211, 102, 0.45),
-    0 3px 10px rgba(0, 0, 0, 0.1),
-    inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    0 10px 30px -4px rgba(37, 211, 102, 0.6),
+    0 4px 15px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.5);
   cursor: pointer;
   overflow: hidden;
   transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.creative-wa-btn:hover {
-  transform: translateY(-2px) scale(1.02);
+.overlay-wa-btn:hover {
+  transform: translateY(-3px) scale(1.03);
   box-shadow: 
-    0 12px 32px -4px rgba(37, 211, 102, 0.6),
-    0 5px 14px rgba(0, 0, 0, 0.15),
-    inset 0 1px 2px rgba(255, 255, 255, 0.6);
+    0 16px 40px -4px rgba(37, 211, 102, 0.75),
+    0 6px 20px rgba(0, 0, 0, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.7);
   background: linear-gradient(135deg, #2ae06d 0%, #22cb65 50%, #159c8d 100%);
 }
 
-.creative-wa-btn:active {
+.overlay-wa-btn:active {
   transform: translateY(0) scale(0.99);
 }
 
 /* Soft Pulsing Aura behind Button */
 .btn-glow-aura {
   position: absolute;
-  inset: -3px;
+  inset: -4px;
   border-radius: 50px;
-  background: rgba(37, 211, 102, 0.4);
-  filter: blur(8px);
+  background: rgba(37, 211, 102, 0.55);
+  filter: blur(10px);
   z-index: -1;
   animation: waPulseAura 2.2s infinite ease-in-out;
   pointer-events: none;
 }
 
 @keyframes waPulseAura {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 0.95; transform: scale(1.03); }
+  0%, 100% { opacity: 0.65; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
 }
 
 /* Shimmer Light Sweeping Effect */
@@ -325,11 +317,11 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.4) 50%,
     transparent 100%
   );
   transform: skewX(-20deg);
-  animation: sweepGlint 3.2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  animation: sweepGlint 3s infinite cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
 }
 
@@ -343,23 +335,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(34px, 4.5vh, 40px);
-  height: clamp(34px, 4.5vh, 40px);
+  width: clamp(36px, 4.8vh, 42px);
+  height: clamp(36px, 4.8vh, 42px);
   background: #ffffff;
   border-radius: 50%;
   color: #128c7e;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   flex-shrink: 0;
   transition: transform 0.25s ease;
 }
 
-.creative-wa-btn:hover .wa-icon-container {
-  transform: rotate(-8deg) scale(1.06);
+.overlay-wa-btn:hover .wa-icon-container {
+  transform: rotate(-8deg) scale(1.08);
 }
 
 .wa-icon {
-  width: clamp(20px, 2.8vh, 24px);
-  height: clamp(20px, 2.8vh, 24px);
+  width: clamp(22px, 3vh, 26px);
+  height: clamp(22px, 3vh, 26px);
 }
 
 /* Button Content Group */
@@ -372,11 +364,11 @@
 
 .btn-main-title {
   font-family: var(--font-heading);
-  font-size: clamp(0.92rem, 1.2vw, 1.05rem);
-  font-weight: 700;
+  font-size: clamp(0.96rem, 1.3vw, 1.1rem);
+  font-weight: 800;
   letter-spacing: 0.02em;
   line-height: 1.2;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   white-space: nowrap;
 }
 
@@ -385,223 +377,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(26px, 3.5vh, 30px);
-  height: clamp(26px, 3.5vh, 30px);
+  width: clamp(28px, 3.8vh, 32px);
+  height: clamp(28px, 3.8vh, 32px);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.25);
   transition: transform 0.25s ease, background 0.2s ease;
   flex-shrink: 0;
 }
 
-.creative-wa-btn:hover .btn-action-arrow {
-  transform: translateX(3px);
-  background: rgba(255, 255, 255, 0.35);
-}
-
-/* Side Banners (Creative Ad Cards flanking left and right) */
-.side-banner {
-  position: relative;
-  z-index: 2;
-  width: clamp(200px, 18vw, 260px);
-  max-height: calc(100dvh - clamp(40px, 6vh, 80px));
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  border-radius: clamp(14px, 1.8vh, 18px);
-  padding: clamp(12px, 2vh, 20px) clamp(12px, 1.5vw, 18px);
-  box-shadow: 0 12px 30px -5px rgba(15, 23, 42, 0.08), 0 0 15px rgba(37, 211, 102, 0.08);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: clamp(8px, 1.2vh, 12px);
-  text-align: left;
-  box-sizing: border-box;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-}
-
-.side-banner:hover {
-  transform: translateY(-3px);
-}
-
-.banner-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: clamp(0.62rem, 0.8vw, 0.68rem);
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: #15803d;
-  background: rgba(34, 197, 94, 0.12);
-  padding: 3px 9px;
-  border-radius: 50px;
-  align-self: flex-start;
-}
-
-.banner-tag.highlight {
-  color: #0369a1;
-  background: rgba(14, 165, 233, 0.12);
-}
-
-.tag-dot {
-  width: 6px;
-  height: 6px;
-  background-color: #22c55e;
-  border-radius: 50%;
-  box-shadow: 0 0 6px #22c55e;
-}
-
-.banner-title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-  font-weight: 800;
-  color: #0f172a;
-  line-height: 1.2;
-}
-
-.banner-desc {
-  font-size: clamp(0.74rem, 0.9vw, 0.82rem);
-  color: #64748b;
-  line-height: 1.4;
-}
-
-.banner-perks {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(6px, 1vh, 8px);
-  margin-top: 2px;
-}
-
-.perk-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: clamp(0.72rem, 0.9vw, 0.8rem);
-  font-weight: 600;
-  color: #334155;
-}
-
-.perk-icon {
-  font-size: 0.85rem;
-}
-
-.steps-list {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(6px, 1vh, 10px);
-  margin-top: 2px;
-}
-
-.step-card {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #f8fafc;
-  padding: clamp(6px, 0.9vh, 8px) 10px;
-  border-radius: 10px;
-  border: 1px solid #f1f5f9;
-}
-
-.step-num {
-  width: clamp(20px, 2.5vh, 24px);
-  height: clamp(20px, 2.5vh, 24px);
-  border-radius: 50%;
-  background: linear-gradient(135deg, #25d366, #128c7e);
-  color: #ffffff;
-  font-size: 0.7rem;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.step-text {
-  font-size: clamp(0.72rem, 0.9vw, 0.78rem);
-  font-weight: 600;
-  color: #1e293b;
-}
-
-.trust-footer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 4px;
-  padding-top: 8px;
-  border-top: 1px solid #f1f5f9;
-}
-
-.trust-stars {
-  color: #f59e0b;
-  letter-spacing: 1px;
-  font-size: 0.8rem;
-}
-
-.trust-count {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #475569;
-}
-
-/* Responsive Breakpoints */
-@media (max-width: 1024px) {
-  .side-banner {
-    display: none;
-  }
-}
-
-@media (max-height: 700px) {
-  .ad-headline-bar {
-    margin-bottom: 4px;
-  }
-
-  .button-wrapper {
-    margin-top: 6px;
-  }
-
-  .video-card {
-    max-height: calc(100dvh - 130px);
-  }
-}
-
-@media (max-width: 768px) {
-  .ad-container {
-    padding: 6px 10px;
-  }
-
-  .ad-headline-bar {
-    margin-bottom: 5px;
-  }
-
-  .headline-badge {
-    padding: 4px 12px;
-  }
-
-  .headline-text {
-    font-size: 0.74rem;
-  }
-
-  .video-card {
-    max-height: calc(100dvh - 110px);
-    border-radius: 14px;
-  }
-
-  .ad-video {
-    border-radius: 12px;
-  }
-
-  .button-wrapper {
-    margin-top: 6px;
-    margin-bottom: 0;
-  }
-
-  .creative-wa-btn {
-    padding: 8px 14px;
-    max-width: 290px;
-  }
-
-  .btn-main-title {
-    font-size: 0.92rem;
-  }
+.overlay-wa-btn:hover .btn-action-arrow {
+  transform: translateX(4px);
+  background: rgba(255, 255, 255, 0.4);
 }
