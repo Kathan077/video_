@@ -5,7 +5,7 @@ function App() {
   const videoRef = useRef(null)
   const [isMuted, setIsMuted] = useState(false)
   const phoneNumber = '919662721224'
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent('Hello! I want to connect my ID.')}`
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent('Hello! I want to get my ID.')}`
 
   const enableSound = () => {
     if (videoRef.current) {
@@ -59,7 +59,7 @@ function App() {
     <div className="fullscreen-ad-wrapper">
       {/* Background Watermark Typography */}
       <div className="bg-watermark-container" aria-hidden="true">
-        <span className="watermark-line text-top">CONNECT YOUR ID</span>
+        <span className="watermark-line text-top">GET YOUR ID</span>
         <span className="watermark-line text-bottom">INSTANT VERIFICATION • 24/7 ACTIVE</span>
       </div>
 
@@ -73,7 +73,7 @@ function App() {
         onClick={handleVideoClick}
         role="button"
         tabIndex={0}
-        title="Click anywhere to connect on WhatsApp"
+        title="Click anywhere to get ID on WhatsApp"
       >
         {/* 9:16 Portrait Video Running Length-to-Length in Continuous Loop */}
         <video
